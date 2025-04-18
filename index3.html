@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atharva srivastava</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/xyz.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #F7EDDA;
+            color: #333;
+            text-transform: lowercase;
+            overflow-x: hidden;
+        }
+        
+        .text-highlight {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .text-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 30%;
+            background-color: rgba(255, 212, 0, 0.4);
+            transition: width 4.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: -1;
+        }
+        
+        .text-highlight.active::after {
+            width: 100%;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #f8f8f8 0%, #F7EDDA 100%);
+        }
+        
+        .project-card {
+            transition: all 0.2s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-45px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .menu-btn {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .5s ease-in-out;
+            cursor: pointer;
+        }
+        
+        .menu-btn span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: #333;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .menu-btn span:nth-child(1) {
+            top: 0;
+        }
+        
+        .menu-btn span:nth-child(2),
+        .menu-btn span:nth-child(3) {
+            top: 9px;
+        }
+        
+        .menu-btn span:nth-child(4) {
+            top: 18px;
+        }
+        
+        .menu-btn.open span:nth-child(1) {
+            top: 9px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        .menu-btn.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+        
+        .menu-btn.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+        
+        .menu-btn.open span:nth-child(4) {
+            top: 9px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        .nav-menu {
+            transform: translateX(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .nav-menu.open {
+            transform: translateX(0);
+        }
+        
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 212, 0, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: multiply;
+        }
+        
+        .artistic-shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: #ffd400;
+            top: 10%;
+            left: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            background: #333;
+            bottom: 20%;
+            right: -50px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(-20px, 20px) rotate(5deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+        
+        .project-image {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        .testimonial-card {
+            background: #F7EDDA;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .process-step {
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 212, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .process-step:nth-child(1)::before {
+            content: '1';
+        }
+        
+        .process-step:nth-child(2)::before {
+            content: '2';
+        }
+        
+        .process-step:nth-child(3)::before {
+            content: '3';
+        }
+        
+        .process-step:nth-child(4)::before {
+            content: '4';
+        }
+        
+        .team-member {
+            transition: all 0.4s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-member img {
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+        
+        .contact-input {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid #ffd400;
+        }
+        
+        .marquee {
+            animation: marquee 20s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+    <div class="cursor-follower"></div>
+
+    <div class="artistic-shape shape-1"></div>
+    <div class="artistic-shape shape-2"></div>
+
+    <nav class="fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-medium flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="mr-2">
+                    <path fill="none" d="M0 0h24v24H0z"/>
+                    <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.5-6H14a.5.5 0 1 0 0-1h-4a2.5 2.5 0 1 1 0-5h1V7h2v1h2.5v2H10a.5.5 0 1 0 0 1h4a2.5 2.5 0 1 1 0 5h-1v1h-2v-1H8.5v-2z"/>
+                </svg> atharva srivastava 🤓
+            </a>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#work" class="hover:text-yellow-500 transition">work</a>
+                <a href="#projects" class="hover:text-yellow-500 transition">projects</a>
+                <a href="#services" class="hover:text-yellow-500 transition">services</a>
+                <a href="#reviews" class="hover:text-yellow-500 transition">reviews</a>
+                <a href="#contact" class="hover:text-yellow-500 transition">contact</a>
+            </div>
+
+            <div class="md:hidden">
+                <div class="menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="nav-menu fixed inset-0 bg-white z-40 flex items-center justify-center">
+        <div class="text-center space-y-8">
+            <a href="#work" class="block text-3xl hover:text-yellow-500 transition">work</a>
+            <a href="#projects" class="block text-3xl hover:text-yellow-500 transition">projects</a>
+            <a href="#services" class="block text-3xl hover:text-yellow-500 transition">services</a>
+            <a href="#reviews" class="block text-3xl hover:text-yellow-500 transition">reviews</a>
+            <a href="#contact" class="block text-3xl hover:text-yellow-500 transition">contact</a>
+        </div>
+    </div>
+
+    <section class="hero-bg min-h-screen flex items-center pt-20 relative overflow-hidden">
+        <div class="container mx-auto px-6 py-20 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+                    <span class="text-highlight">HIIIIIIIIIIIIIIIIIIIIII!!!!!!!</span><br>
+                    <br>
+                    <span class="text-highlight">building experiences</span><br>
+                    <span class="text-highlight">that</span><br>
+                    <span class="text-highlight">feel like magic 🤓</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-12 max-w-2xl">
+                    where code meets creativity — building ML-powered tools and digital experiences that matter.
+                </p>
+                <a href="#work" class="inline-block px-8 py-4 bg-black text-white rounded-full hover:bg-yellow-500 hover:text-black transition">
+                    glance of my work
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute right-20 top-1/3 z-0 opacity-10">
+            <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 0C44.7715 0 0 44.7715 0 100C0 155.229 44.7715 200 100 200C155.229 200 200 155.229 200 100C200 44.7715 155.229 0 100 0ZM100 180C55.3726 180 20 144.627 20 100C20 55.3726 55.3726 20 100 20C144.627 20 180 55.3726 180 100C180 144.627 144.627 180 100 180Z" fill="#333"/>
+                <path d="M100 40C66.8629 40 40 66.8629 40 100C40 133.137 66.8629 160 100 160C133.137 160 160 133.137 160 100C160 66.8629 133.137 40 100 40ZM100 140C77.9086 140 60 122.091 60 100C60 77.9086 77.9086 60 100 60C122.091 60 140 77.9086 140 100C140 122.091 122.091 140 100 140Z" fill="#333"/>
+                <circle cx="100" cy="100" r="20" fill="#FFD400"/>
+            </svg>
+        </div>
+    </section>
+
+    <section class="py-12 bg-white overflow-hidden">
+        <div class="marquee flex items-center">
+            <div class="flex space-x-24 px-6 items-center">
+                <span class="text-lg font-medium mr-24">trusted by:</span>
+                <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                <div class="flex space-x-24 px-6 items-center">
+                    <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                    <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                    <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                    <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                    <img src="assets/icons8-linkedin-50.png" alt="Client Logo" class="h-8 opacity-60 hover:opacity-100 transition">
+                </div>
+    </section>
+
+    <section id="work" class="py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <h2 class="text-3xl">best projects</h2>
+                <a href="https://github.com/but-pixelated?tab=repositories" class="text-sm hover:text-yellow-500 transition">view all projects →</a>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 mb-20">
+                <div class="project-card bg-white rounded-2xl overflow-hidden">
+                    <div class="h-80 bg-gray-200 overflow-hidden relative">
+                        <div class="project-image absolute inset-0 bg-cover bg-center" style="background-image: url('assets/bad9081d-8546-4d67-a00a-a4301590cb74.png');"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2">brain tumor detector</h3>
+                        <p class="text-gray-600 mb-4">python, uses machine learning</p>
+                        <a href="https://github.com/but-pixelated/brain_tumor_detector" class="inline-block text-yellow-500 hover:text-black transition">view project →</a>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white rounded-2xl overflow-hidden">
+                    <div class="h-80 bg-gray-300 overflow-hidden relative">
+                        <div class="project-image absolute inset-0 bg-cover bg-center" style="background-image: url('assets/da21c833-9c39-4111-af0d-f002ca2d9d28.png');"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2">aircraft-live tracker</h3>
+                        <p class="text-gray-600 mb-4">python, live tracking, uses gradio</p>
+                        <a href="https://github.com/but-pixelated/AircraftTracker-Live-" class="inline-block text-yellow-500 hover:text-black transition">view project →</a>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white rounded-2xl overflow-hidden">
+                    <div class="h-80 bg-gray-200 overflow-hidden relative">
+                        <div class="project-image absolute inset-0 bg-cover bg-center" style="background-image: url('assets/2f0c1298-449e-4b92-81f2-f53a2965eb9e.png');"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2">lane detection</h3>
+                        <p class="text-gray-600 mb-4">python, machine learning</p>
+                        <a href="https://github.com/but-pixelated/lane_detection" class="inline-block text-yellow-500 hover:text-black transition">view project →</a>
+                    </div>
+                </div>
+
+                <div class="project-card bg-white rounded-2xl overflow-hidden">
+                    <div class="h-80 bg-gray-300 overflow-hidden relative">
+                        <div class="project-image absolute inset-0 bg-cover bg-center" style="background-image: url('assets/1c2b2529-8cd9-4419-8d75-b99afd2c7a57.png');"></div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2">barcode generator</h3>
+                        <p class="text-gray-600 mb-4">python, simple and fast</p>
+                        <a href="https://github.com/but-pixelated/barcode-generator" class="inline-block text-yellow-500 hover:text-black transition">view project →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="projects" class="text-center pt-28">
+                <a href="https://github.com/but-pixelated" class="inline-block px-8 py-4 border border-black rounded-full hover:bg-black hover:text-white transition">
+                see all projects on github
+                </a>
+            </div>
+        </div>
+
+
+        <div class="absolute left-0 bottom-0 -mb-20 -ml-20 opacity-10">
+            <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 200C155.229 200 200 155.229 200 100C200 44.7715 155.229 0 100 0C44.7715 0 0 44.7715 0 100C0 155.229 44.7715 200 100 200ZM100 180C55.3726 180 20 144.627 20 100C20 55.3726 55.3726 20 100 20C144.627 20 180 55.3726 180 100C180 144.627 144.627 180 100 180Z" fill="#333"/>
+                <path d="M100 160C133.137 160 160 133.137 160 100C160 66.8629 133.137 40 100 40C66.8629 40 40 66.8629 40 100C40 133.137 66.8629 160 100 160ZM100 140C122.091 140 140 122.091 140 100C140 77.9086 122.091 60 100 60C77.9086 60 60 77.9086 60 100C60 122.091 77.9086 140 100 140Z" fill="#333"/>
+                <circle cx="100" cy="100" r="20" fill="#FFD400"/>
+            </svg>
+        </div>
+    </section>
+
+
+    <section id="reviews" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl mb-16 text-center">what others say? </h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">sarah jones</h4>
+                            <p class="text-sm text-gray-600">student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "this advanced brain tumor detection system harnesses the power of artificial intelligence to analyze medical brain scans with remarkable precision. using deep learning algorithms trained on real mri datasets, it identifies tumor regions with high accuracy
+                        reducing diagnostic time, more informed decisions. by blending medical imaging with ai, this project marks a step forward in building smarter, more accessible, and efficient healthcare solutions"
+                    </p>
+                </div>
+
+                <div class="testimonial-card p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">michael brown</h4>
+                            <p class="text-sm text-gray-600">student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        "Built with performance and precision in mind, this project brings machine learning and OpenCV together to solve one of the key challenges in self-driving tech: staying reliably in-lane. Whether it’s city traffic or highway cruising, the system intelligently
+                        recognizes lane boundaries and ensures consistent path awareness, even under low-visibility scenarios.”
+
+                    </p>
+                </div>
+
+                <div class="testimonial-card p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">emma wilson</h4>
+                            <p class="text-sm text-gray-600">reinforcement learning professor - stanford university</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">
+                        “this project demonstrates an impressive application of ai in medical imaging. while not directly using reinforcement learning, the model’s architecture reflects a strong understanding of learning systems and optimization under uncertainty. its accuracy
+                        and efficiency in identifying tumor regions make it a valuable diagnostic aid, and it’s exciting to see students leveraging ai to impact critical domains like healthcare. the integration of deep learning into clinical workflows
+                        is no longer theoretical — this project proves it’s real, tangible, and powerful.” </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="studio" class="py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl mb-8">i’m atharva srivastava
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <p class="mb-6">
+                            a multidisciplinary developer and creative technologist, merging machine learning, web engineering, and thoughtful design to create intelligent, intuitive digital solutions. i lead a studio focused on building experiences that are not only technically
+                            sound but emotionally resonant — whether it’s a brain tumor detection system powered by deep learning or a seamless, scalable website for a growing brand.
+                            <p class="mb-6">
+                                based in india and working globally, i collaborate with ambitious teams, visionary founders, and researchers to build products that are future-facing, human-centered, and impact-driven.
+                            </p>
+
+                            <div class="mt-8">
+                                <div class="flex items-center mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500 mr-3">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                    <span>+91-9236557489</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500 mr-3">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                    <span>atharvasrivastava9990@gmail.com</span>
+                                </div>
+                            </div>
+                    </div>
+                    <div>
+                        <p class="mb-6">
+                            i collaborate with founders, researchers, and forward-thinking teams who are building the future — from ai-driven healthcare tools to intelligent web platforms. whether you’re prototyping a machine learning solution, developing a digital product, or crafting
+                            a new user experience, i help bring ideas to life with precision and purpose. </p>
+
+                        <div class="bg-white p-6 rounded-xl shadow-sm mt-8">
+                            <h4 class="font-bold mb-4">what i provide</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500 mr-3 mt-1">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                    <span>web development: full-stack solutions, fast, responsive, and crafted with aesthetics in mind</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500 mr-3 mt-1">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                    <span>machine learning: real-world ai systems, from healthcare diagnostics to intelligent automation</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500 mr-3 mt-1">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                    <span>hci & creative engineering: gesture-based controls, computer vision, and future-forward interfaces</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mx-auto px-6 mt-20">
+            <h3 class="text-2xl mb-8">upcoming projects</h3>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="team-member">
+                    <div class="h-64 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/bd462243-c417-4328-bf82-12f82f51101a.png" alt="Team Member" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold">cancer detection project</h4>
+                    <p class="text-gray-600">real-time screening</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="h-64 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/b80c07dd-721f-4777-a9b3-a4f68128c7f8.png" alt="Team Member" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold">plant disease detection</h4>
+                    <p class="text-gray-600">python, machine learning</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="h-64 rounded-xl overflow-hidden mb-4">
+                        <img src="assets/31245532-6592-4536-9b42-895224914464.png" alt="Team Member" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold">real-time cancer screening app</h4>
+                    <p class="text-gray-600">using python and transformers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl mb-16">my services</h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl hover:shadow-lg transition border border-gray-100">
+                    <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">machine learning & ai solutions
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        i build intelligent systems that learn, adapt, and solve real-world problems—from healthcare to automotive. </p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> deep learning
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> reinforcement learning
+
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> predictive modeling & computer vision
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl hover:shadow-lg transition border border-gray-100">
+                    <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">full-stack web development
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        from backend logic to frontend polish, i create robust, scalable web apps that work beautifully and perform efficiently. </p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> responsive design
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> interactive dashboards
+
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> cloud integration
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl hover:shadow-lg transition border border-gray-100">
+                    <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
+                            <path d="M8.5 8.5v.01"></path>
+                            <path d="M16 15.5v.01"></path>
+                            <path d="M12 12v.01"></path>
+                            <path d="M11 17v.01"></path>
+                            <path d="M7 14v.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">technical r&d & experimentation</h3>
+                    <p class="text-gray-600 mb-6">
+                        i experiment with cutting-edge tech and build innovative prototypes that push boundaries. </p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> ai research projects
+
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> gesture & hand tracking
+
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> real-time systems
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl mb-16">my process</h2>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <div class="process-step mb-8">
+                        <h3 class="text-xl font-bold mb-4">discovery</h3>
+                        <p class="text-gray-700">
+                            i begin by understanding the problem, the users, and the environment. through research, brainstorming, and discussions, i uncover real needs and define what success looks like. </p>
+                    </div>
+
+                    <div class="process-step mb-8">
+                        <h3 class="text-xl font-bold mb-4">strategy</h3>
+                        <p class="text-gray-700">
+                            next, i outline a clear, goal-driven roadmap. this includes defining the tech stack, data pipelines, model architecture (for ai projects), or system flow (for apps) — always aligning with long-term impact. </p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="process-step mb-8">
+                        <h3 class="text-xl font-bold mb-4">design & development</h3>
+                        <p class="text-gray-700">
+                            this is where concept meets execution. whether it’s training deep learning models, building web apps, or crafting ui/ux — i turn strategy into high-performing, user-centered systems. </p>
+                    </div>
+
+                    <div class="process-step mb-8">
+                        <h3 class="text-xl font-bold mb-4">iteration & delivery</h3>
+                        <p class="text-gray-700">
+                            i refine through testing, feedback, and evaluation. the final output is always polished, efficient, and production-ready — with room to evolve as needs grow. i also support deployment, documentation, and scaling. </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mt-20 relative h-2 bg-gray-200 rounded-full max-w-4xl mx-auto">
+                <div class="absolute top-0 left-0 h-full bg-yellow-500 rounded-full w-1/4"></div>
+                <div class="absolute -top-3 left-1/4 w-8 h-8 rounded-full bg-yellow-500 border-4 border-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                </div>
+                <div class="absolute -top-3 left-1/2 w-8 h-8 rounded-full bg-yellow-500 border-4 border-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 16 12 14 15 10 9 8 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <div class="absolute -top-3 left-3/4 w-8 h-8 rounded-full bg-yellow-500 border-4 border-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </div>
+                <div class="absolute -top-3 right-0 w-8 h-8 rounded-full bg-yellow-500 border-4 border-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-black text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl md:text-5xl font-bold mb-4">10+</div>
+                    <p class="text-gray-400">projects completed</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl md:text-5xl font-bold mb-4">15+</div>
+                    <p class="text-gray-400">happy clients</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl md:text-5xl font-bold mb-4">8</div>
+                    <p class="text-gray-400">real-time projects delivered</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl md:text-5xl font-bold mb-4">100%</div>
+                    <p class="text-gray-400">satisfaction rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-yellow-500 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold mb-8 text-center">ready to start your project?</h2>
+                <p class="text-xl mb-12 max-w-2xl mx-auto text-center">
+                    IIIII WOUULLLLLDDDDD love to hear about your ideas and how I can help bring them to life.
+                </p>
+
+                <form class="bg-black text-white p-8 rounded-2xl max-w-2xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block mb-2">name</label>
+                            <input type="text" id="name" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2">email</label>
+                            <input type="email" id="email" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="subject" class="block mb-2">subject</label>
+                        <input type="text" id="subject" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none">
+                    </div>
+                    <div class="mb-8">
+                        <label for="message" class="block mb-2">message</label>
+                        <textarea id="message" rows="5" class="contact-input w-full px-4 py-3 rounded-lg focus:outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full px-8 py-4 bg-yellow-500 text-black rounded-full hover:bg-white transition font-medium">
+                        click MEEEE to send :3
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-black opacity-10"></div>
+        <div class="absolute -left-20 -top-20 w-64 h-64 rounded-full bg-black opacity-10"></div>
+    </section>
+
+    <footer class="py-12 bg-black text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.5-6H14a.5.5 0 1 0 0-1h-4a2.5 2.5 0 1 1 0-5h1V7h2v1h2.5v2H10a.5.5 0 1 0 0 1h4a2.5 2.5 0 1 1 0 5h-1v1h-2v-1H8.5v-2z" fill="rgba(255,212,0,1)"
+                        />
+                        </svg> atharva srivastava 🤓
+                    </h3>
+                    <p>ai engineer & designer crafting smart digital experiences, building intuitive products at the intersection of ml & design.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">explore</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#work" class="hover:text-yellow-500 transition">work</a></li>
+                        <li><a href="#projects" class="hover:text-yellow-500 transition">projects</a></li>
+                        <li><a href="#services" class="hover:text-yellow-500 transition">services</a></li>
+                        <li><a href="#process" class="hover:text-yellow-500 transition">process</a></li>
+                        <li><a href="#contact" class="hover:text-yellow-500 transition">contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">connect</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-yellow-500 transition">instagram</a></li>
+                        <li><a href="#" class="hover:text-yellow-500 transition">twitter</a></li>
+                        <li><a href="#" class="hover:text-yellow-500 transition">linkedin</a></li>
+                        <li><a href="#" class="hover:text-yellow-500 transition">dribbble</a></li>
+                        <li><a href="#" class="hover:text-yellow-500 transition">behance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">contact ME?</h3>
+                    <ul class="space-y-2">
+                        <li>atharvasrivastava9990@gmail.com</li>
+                        <li>+91 9236557489</li>
+                        <li>new delhi, india</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-gray-500">
+                <p>© 2025 atharva srivastava. all rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('open');
+            navMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('open');
+                navMenu.classList.remove('open');
+            });
+        });
+
+        const textHighlights = document.querySelectorAll('.text-highlight');
+
+        const highlightObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        textHighlights.forEach(highlight => {
+            highlightObserver.observe(highlight);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        ScrollReveal().reveal('.text-highlight', {
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.project-card', {
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.testimonial-card', {
+            delay: 300,
+            distance: '30px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.process-step', {
+            delay: 200,
+            distance: '20px',
+            origin: 'left',
+            interval: 100
+        });
+
+        ScrollReveal().reveal('.team-member', {
+            delay: 200,
+            distance: '30px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+        });
+
+
+        const interactiveElements = document.querySelectorAll('a, button, .project-card, .testimonial-card');
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(2)';
+                cursorFollower.style.backgroundColor = 'rgba(255, 212, 0, 0.8)';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.backgroundColor = 'rgba(255, 212, 0, 0.5)';
+            });
+        });
+
+
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async(e) => {
+                e.preventDefault();
+
+                const formData = new FormData(contactForm);
+                const data = Object.fromEntries(formData.entries());
+                console.log('Form Data:', data);
+
+                try {
+                    const response = await fetch('http://localhost:5000/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Thank you for your message!');
+                        contactForm.reset();
+                    } else {
+                        alert('Failed to send message.');
+                    }
+                } catch (err) {
+                    alert('Error sending message.');
+                    console.error(err);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
